@@ -1,6 +1,6 @@
 import Image from "next/image";
 import HeaderComponent from "@/app/components/header/headerComponent";
-import CardComponent from "@/app/components/Card/cardComponent";
+import CardComponent from "@/app/components/card/cardComponent";
 import { Category } from "@/app/components/common/miscellaneous";
 
 export default function Home() {
