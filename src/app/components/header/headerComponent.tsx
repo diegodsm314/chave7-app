@@ -1,37 +1,188 @@
-import React from 'react';
+"use client";
+import React, { useState } from "react";
+import { Category } from "../global";
+import CardNewTaskComponent from "../card/cardNewTaskComponent";
 
-const HeaderComponent: React.FC = () => {
-    return (
-        <header className="p-4 bg-gray-100" >
-            <nav className="flex items-center justify-center">
-                <ul className="flex list-none gap-8 m-0 items-center">
-                    <li className=' text-gray-800 transition-colors hover:text-[#ffffff] dark:hover:bg-[#1a1a1a] hover:border-transparent'>
-                        <a href="/" className="no-underline">Home</a>
-                    </li>
-                    <li className=' text-gray-800 transition-colors hover:text-[#ffffff] dark:hover:bg-[#1a1a1a] hover:border-transparent'>
-                        <a href="/pages" className="no-underline">Tarefas</a>
-                    </li>
-                    <li>
-                        <input
-                            type="text"
-                            placeholder="Filtro"
-                            className="p-2 rounded border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </li>
-                    <li>
-                        <a
-                            className="rounded-full bg-gray-700 border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-                            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Buscar
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-    );
+interface HeaderProps {
+  search: string;
+  setSearch: (value: string) => void;
+  category: string;
+  setCategory: (value: string) => void;
+}
+
+const formatCategoryName = (cat: string) =>
+  cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase();
+
+const HeaderComponent: React.FC<HeaderProps> = ({
+  search,
+  setSearch,
+  category,
+  setCategory,
+}) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [newTaskOpen, setNewTaskOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
+  const toggleNewTask = () => setNewTaskOpen((open) => !open);
+
+  return (
+    <header className="p-4 bg-gray-100 shadow-md mb-5 relative z-50">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="text-xl font-bold text-gray-800">Gerenciador de tarefas</div>
+
+        {/* Botão menu mobile */}
+        <button
+          className="sm:hidden text-gray-700 text-2xl"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Abrir menu"
+        >
+          ☰
+        </button>
+
+        {/* Telas grandes - menu principal + novo tarefa */}
+        <nav className="hidden sm:flex gap-4 items-center">
+          <a href="/" className="text-gray-800 hover:underline">
+            Home
+          </a>
+          <a href="/pages" className="text-gray-800 hover:underline">
+            Tarefas
+          </a>
+
+          <input
+            type="text"
+            placeholder="Filtrar por nome"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="p-2 rounded border border-gray-300 text-gray-900 focus:ring-2 focus:ring-blue-500"
+          />
+
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="p-2 rounded border border-gray-300 text-gray-900 focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Todas as categorias</option>
+            {Object.values(Category).map((cat) => (
+              <option key={cat} value={cat}>
+                {formatCategoryName(cat)}
+              </option>
+            ))}
+          </select>
+
+          {/* Botão para abrir o formulário nova tarefa */}
+          <button
+            onClick={toggleNewTask}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            aria-expanded={newTaskOpen}
+            aria-controls="new-task-form"
+          >
+            Nova Tarefa
+          </button>
+        </nav>
+      </div>
+
+      {/* Overlay para menu mobile */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 bg-black opacity-20 z-40 sm:hidden"
+          onClick={closeMenu}
+        />
+      )}
+
+      {/* Menu lateral mobile */}
+      <div
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-md z-50 p-4 flex flex-col gap-4 sm:hidden
+          transform transition-transform duration-300
+          ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        <button
+          onClick={closeMenu}
+          className="self-end text-xl text-gray-600"
+          aria-label="Fechar menu"
+        >
+          ✕
+        </button>
+
+        <a onClick={closeMenu} href="/" className="text-gray-800 hover:underline">
+          Home
+        </a>
+        <a
+          onClick={closeMenu}
+          href="/pages"
+          className="text-gray-800 hover:underline"
+        >
+          Tarefas
+        </a>
+
+        <input
+          type="text"
+          placeholder="Filtrar por nome"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="p-2 rounded border border-gray-300 text-gray-900 focus:ring-2 focus:ring-blue-500"
+        />
+
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="p-2 rounded border border-gray-300 text-gray-900 focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Todas as categorias</option>
+          {Object.values(Category).map((cat) => (
+            <option key={cat} value={cat}>
+              {formatCategoryName(cat)}
+            </option>
+          ))}
+        </select>
+
+        {/* Botão abrir formulário nova tarefa mobile */}
+        <button
+          onClick={() => {
+            toggleNewTask();
+            setMenuOpen(false);
+          }}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        >
+          Nova Tarefa
+        </button>
+      </div>
+
+      {/* Formulário nova tarefa - desktop dropdown */}
+      {newTaskOpen && (
+        <div
+          id="new-task-form"
+          className="hidden sm:block absolute right-4 top-full mt-2 bg-white p-4 rounded shadow-lg w-96 z-50"
+          aria-label="Formulário para criar nova tarefa"
+        >
+          <CardNewTaskComponent
+            onTaskCreated={() => {
+              setNewTaskOpen(false);
+            }}
+          />
+        </div>
+      )}
+
+      {/* Formulário nova tarefa - mobile full screen modal */}
+      {newTaskOpen && (
+        <div className="sm:hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center p-4">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-4 relative">
+            <button
+              onClick={() => setNewTaskOpen(false)}
+              className="absolute top-2 right-2 text-gray-600 text-xl"
+              aria-label="Fechar formulário"
+            >
+              ✕
+            </button>
+            <CardNewTaskComponent
+              onTaskCreated={() => {
+                setNewTaskOpen(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
+    </header>
+  );
 };
 
 export default HeaderComponent;

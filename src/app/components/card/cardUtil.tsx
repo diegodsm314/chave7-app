@@ -22,7 +22,7 @@ export const CategoryBadge = ({ propsCategory }: Props) => {
   );
 };
 
-export default function getTimeRemaining(endDate: Date) {
+export function getTimeRemaining(endDate: Date) {
   const now = new Date();
   const diff = endDate.getTime() - now.getTime();
 
@@ -33,4 +33,14 @@ export default function getTimeRemaining(endDate: Date) {
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
 
   return `${days}d ${hours}h ${minutes}m`;
-}
+};
+
+export function createLocalDateFromInput(inputValue: string): Date {
+  const [year, month, day] = inputValue.split("-").map(Number);
+  const localDate = new Date();
+  localDate.setFullYear(year);
+  localDate.setMonth(month - 1);
+  localDate.setDate(day);
+  localDate.setHours(0, 0, 0, 0);
+  return localDate;
+};

@@ -1,27 +1,29 @@
 "use client";
 import React from 'react';
 import { CategoryBadge } from './cardUtil';
-import getTimeRemaining from './cardUtil';
+import { getTimeRemaining } from './cardUtil';
 import { CardProps } from './cardUtil';
 
-const CardComponent: React.FC<CardProps> = ({ title, description, status, endDate, category}) => (
+const CardComponent: React.FC<CardProps> = ({ title, description, status, endDate, category }) => (
   <div className={"border border-[#ddd] rounded-lg p-4 shadow-sm bg-white gap"}>
     <div className='flex items-center justify-between mb-3'>
       <h2 className={"dark:invert"}>{title}</h2>
       <div><CategoryBadge propsCategory={category} /></div>
     </div>
-    <p className={"mb-3 text-[#555] min-h-[1em]"}>{description?description: "Sem descrição"}</p>
+    <p className={"mb-3 text-[#555] min-h-[1em]"}>{description ? description : "Sem descrição"}</p>
     <div className="text-sm text-gray-500 flex items-center justify-between gap-6">
-      <div>Data de encerramento: {endDate.toLocaleDateString()}</div>
+      <div>
+        Data de encerramento: {new Date(endDate).toLocaleString("pt-BR", {dateStyle: "short", timeStyle: "short"})}
+      </div>
       <div
         className={
           status === "CONCLUIDO"
             ? "text-green-600 font-bold"
             : status === "PENDENTE" && getTimeRemaining(endDate) === "Tempo expirado"
-            ? "text-red-600 font-bold"
-            : status === "PENDENTE"
-            ? "text-yellow-600 font-bold"
-            : ""
+              ? "text-red-600 font-bold"
+              : status === "PENDENTE"
+                ? "text-yellow-600 font-bold"
+                : ""
         }
       >
         Status: {getTimeRemaining(endDate)}
