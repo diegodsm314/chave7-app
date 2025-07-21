@@ -26,6 +26,7 @@ Aplicação web para gerenciamento de tarefas com categorias, status e datas, co
 ---
 
 ## Estrutura de Pastas
+```
 app/
 │
 │
@@ -43,6 +44,7 @@ app/
 │  └──task/[id].tsx # Página de detalhes de uma tarefa
 |
 └── page.tsx # Página inicial com lista de tarefas
+```
 
 ---
 
