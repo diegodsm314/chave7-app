@@ -2,10 +2,12 @@ import { Category, categoryColors } from '../global';
 
 export type CardProps = {
   title: string;
+  id: string;
   description: string;
   status: string;
   category: Category;
   endDate: Date;
+  onStatusChange: () => void;
 };
 
 interface Props {

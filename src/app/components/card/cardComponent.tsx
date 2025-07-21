@@ -3,8 +3,9 @@ import React from 'react';
 import { CategoryBadge } from './cardUtil';
 import { getTimeRemaining } from './cardUtil';
 import { CardProps } from './cardUtil';
+import Link from 'next/link';
 
-const CardComponent: React.FC<CardProps> = ({ title, description, status, endDate, category }) => (
+const CardComponent: React.FC<CardProps> = ({ title, id, description, status, endDate, category, onStatusChange }) => (
   <div className={"border border-[#ddd] rounded-lg p-4 shadow-sm bg-white gap"}>
     <div className='flex items-center justify-between mb-3'>
       <h2 className={"dark:invert"}>{title}</h2>
@@ -26,15 +27,15 @@ const CardComponent: React.FC<CardProps> = ({ title, description, status, endDat
                 : ""
         }
       >
-        Status: {getTimeRemaining(endDate)}
-      </div >
+        Status: {status === "CONCLUIDO" ? "CONCLUIDO" : getTimeRemaining(endDate)}
+      </div > 
     </div>
-    <div className="mt-4 flex justify-center">
+    <div className="mt-10 flex justify-between items-center">
       {status === "PENDENTE" ? (
         <button
           className="ml-2 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition"
           onClick={() => {
-            // TO_DO Chame sua mutation aqui para concluir a tarefa
+            onStatusChange();
             console.log("Concluir tarefa");
           }}
         >
@@ -44,13 +45,17 @@ const CardComponent: React.FC<CardProps> = ({ title, description, status, endDat
         <button
           className="ml-2 px-3 py-1 bg-gray-500 text-white rounded hover:bg-green-600 transition"
           onClick={() => {
-            // TO_DO Chame sua mutation aqui para reabrir a tarefa
+            onStatusChange();
             console.log("Reabrir tarefa");
           }}
         >
           Reabrir
         </button>
       ) : null}
+
+      <Link href={`/task/${id}`} className="text-blue-500 hover:underline text-sm ml-4">
+        Ver detalhes
+      </Link>
     </div>
   </div>
 );

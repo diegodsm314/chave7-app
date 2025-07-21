@@ -21,6 +21,7 @@ export type Task = {
   user: {
     firstName: string;
     lastName: string;
+    email?: string;
   };
 };
 

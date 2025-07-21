@@ -25,7 +25,7 @@ export async function updateTaskStatus(id: string, status: string) {
   return json.data.updateTaskStatus;
 }
 
-export async function createTask({ task }: { task: Omit<Task, 'id' | 'createdAt' | "status">; }) : Promise<Task> {
+export async function createTask({ task }: { task: Omit<Task, 'id' | 'createdAt' | "status">; }): Promise<Task> {
   const mutation = `
     mutation CreateTask($title: String!, $description: String!, $category: String!, $endDate: String!, $user: UserInput!) {
       createTask(title: $title, description: $description, category: $category, endDate: $endDate, user: $user ) {
@@ -59,4 +59,28 @@ export async function createTask({ task }: { task: Omit<Task, 'id' | 'createdAt'
 
   const json = await response.json();
   return json.data.addTask;
+}
+
+export async function removeTask(id: string): Promise<void> {
+  const mutation = `
+    mutation RemoveTask($removeTaskId: String!) {
+    removeTask(id: $removeTaskId) {
+    id
+    }
+  }
+  `;
+
+  const variables = { removeTaskId: id };
+
+  const response = await fetch(GRAPHQL_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: mutation, variables }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete task");
+  }
 }
