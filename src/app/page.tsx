@@ -3,7 +3,6 @@
 import TaskPage from "./components/task/taskPage";
 import FooterComponent from "./components/footer/footer";
 import CardNewTaskComponent from "./components/card/cardNewTaskComponent";
-import { useState } from "react";
 
 export default function Home() {
   

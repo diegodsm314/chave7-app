@@ -97,3 +97,9 @@ export interface Task {
 ## Backend
 - Esse aplicativo funciona em conjunto ao repositorio chave7-back <https://github.com/diegodsm314/chave7-back>
 
+## 🌐 Deploy
+
+Esta aplicação está publicada na Vercel.
+
+🔗 Acesse em: [https://chave7-front.vercel.app](https://chave7-front.vercel.app)
+
