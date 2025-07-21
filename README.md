@@ -78,6 +78,7 @@ ou
     <http://localhost:3000>
 
 ## Estrutura da Tarefa (Tipo Task)
+```
 export interface Task {
   id: string;
   title: string;
@@ -87,6 +88,7 @@ export interface Task {
   createdAt: string;
   endDate?: string;
 }
+```
 
 ## Observações
 - As tarefas são atualizadas automaticamente a cada 60 segundos, mas também é possível recarregar manualmente com um clique (futuramente).
