@@ -91,6 +91,6 @@ export interface Task {
 ```
 
 ## Observações
-- As tarefas são atualizadas automaticamente a cada 60 segundos, mas também é possível recarregar manualmente com um clique (futuramente).
+- As tarefas são atualizadas automaticamente a cada 60 segundos, mas também é possível recarregar manualmente atualizando a pagina.
 - A contagem de tempo restante é dinâmica e atualiza a cada re-render da lista.
 
