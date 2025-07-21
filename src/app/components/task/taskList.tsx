@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getTasks } from '../../../services/query';
 import CardComponent from '../card/cardComponent';
 import { updateTaskStatus } from '../../../services/mutation';
+import { useEffect, useState } from "react";
 
 
 interface TaskListProps {
@@ -10,10 +11,19 @@ interface TaskListProps {
 }
 
 export default function TaskList({ search, category }: TaskListProps) {
+  const [tick, setTick] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTick(prev => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   const { data: tasks = [], isLoading } = useQuery({
     queryKey: ['tasks'],
     queryFn: getTasks,
-    refetchInterval: 60000,
+    refetchInterval: 60000, // Atualiza a lista de tarefas a cada 60 segundos
   });
 
   const queryClient = useQueryClient();

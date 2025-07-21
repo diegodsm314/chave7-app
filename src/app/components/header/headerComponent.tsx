@@ -159,7 +159,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({
             {newTaskOpen && (
                 <div
                     id="new-task-form"
-                    className="hidden sm:block absolute right-4 top-full mt-2 bg-white p-4 rounded shadow-lg w-96 z-50"
+                    className="hidden sm:block absolute right-4 top-full mt-2 bg-white p-4 rounded shadow-lg w-140 z-50"
                     aria-label="Formulário para criar nova tarefa"
                 >
                     <CardNewTaskComponent

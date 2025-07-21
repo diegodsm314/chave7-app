@@ -34,6 +34,10 @@ export function getTimeRemaining(endDate: Date) {
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
 
+  if (days === 0 && hours === 0 && minutes === 0) {
+    return 'Menos de 1 minuto';
+  }
+
   return `${days}d ${hours}h ${minutes}m`;
 };
 
