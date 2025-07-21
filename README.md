@@ -94,3 +94,6 @@ export interface Task {
 - As tarefas são atualizadas automaticamente a cada 60 segundos, mas também é possível recarregar manualmente atualizando a pagina.
 - A contagem de tempo restante é dinâmica e atualiza a cada re-render da lista.
 
+## Backend
+- Esse aplicativo funciona em conjunto ao repositorio chave7-back <https://github.com/diegodsm314/chave7-back>
+
