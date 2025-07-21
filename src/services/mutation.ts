@@ -1,4 +1,10 @@
 const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string;
+
+
+if (!GRAPHQL_ENDPOINT) {
+  throw new Error("GRAPHQL endpoint is not defined in environment variables.");
+}
+
 import { Task } from "@/app/components/global";
 
 export async function updateTaskStatus(id: string, status: string) {

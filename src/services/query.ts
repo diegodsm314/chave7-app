@@ -1,4 +1,8 @@
-const GRAPHQL_ENDPOINT = "http://localhost:4000/graphql";
+const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string;
+
+if (!GRAPHQL_ENDPOINT) {
+  throw new Error("GRAPHQL endpoint is not defined in environment variables.");
+}
 
 import { Task, Category } from "@/app/components/global";
 
