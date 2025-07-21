@@ -1,4 +1,4 @@
-const GRAPHQL_ENDPOINT = "http://localhost:4000/graphql";
+const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string;
 import { Task } from "@/app/components/global";
 
 export async function updateTaskStatus(id: string, status: string) {
